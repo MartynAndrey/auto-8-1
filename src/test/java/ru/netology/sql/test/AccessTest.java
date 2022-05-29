@@ -1,9 +1,15 @@
 package ru.netology.sql.test;
 
-import org.junit.jupiter.api.*;
-import ru.netology.sql.data.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import ru.netology.sql.data.AuthInfo;
+import ru.netology.sql.data.DBConnectionInfo;
+import ru.netology.sql.data.VerifyInfo;
 import ru.netology.sql.db.DBManager;
-import ru.netology.sql.page.*;
+import ru.netology.sql.page.DashboardPage;
+import ru.netology.sql.page.LoginPage;
+import ru.netology.sql.page.VerificationPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;

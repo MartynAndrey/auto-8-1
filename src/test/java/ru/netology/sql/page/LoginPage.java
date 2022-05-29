@@ -1,8 +1,8 @@
 package ru.netology.sql.page;
 
-import ru.netology.sql.data.AuthInfo;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import ru.netology.sql.data.AuthInfo;
 
 import java.time.Duration;
 
