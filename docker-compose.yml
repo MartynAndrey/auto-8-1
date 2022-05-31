@@ -4,9 +4,11 @@ services:
     image: mysql:8
     restart: always
     ports:
-      - 3306:3306
+      - '3306:3306'
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: yes
-      MYSQL_DATABASE: db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
