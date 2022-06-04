@@ -9,30 +9,34 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DBManager {
+    private final static DBConnectionInfo dbConnectionInfo = new DBConnectionInfo(
+            "jdbc:mysql://192.168.99.100:3306/db",
+            "user",
+            "pass"
+    );
 
     @SneakyThrows
-    public String getVerificationCodeByLogin(DBConnectionInfo dbConnectionInfo, String login) {
+    public static String getVerificationCodeByLogin(String login) {
         String userIdSQL = "SELECT id FROM users WHERE login = ?;";
         String codeSQL = "SELECT code FROM auth_codes WHERE created = (SELECT MAX(created) FROM auth_codes WHERE user_id = ?);";
         QueryRunner runner = new QueryRunner();
         try (
-                Connection connection = DriverManager.getConnection(dbConnectionInfo.getUrl(), dbConnectionInfo.getUser(), dbConnectionInfo.getPassword());
+                Connection connection = DriverManager.getConnection(dbConnectionInfo.getUrl(), dbConnectionInfo.getUser(), dbConnectionInfo.getPassword())
         ) {
             String userid = runner.query(connection, userIdSQL, new ScalarHandler<>(), login);
-            String verificationCode = runner.query(connection, codeSQL, new ScalarHandler<>(), userid);
-            return verificationCode;
+            return runner.query(connection, codeSQL, new ScalarHandler<>(), userid);
         }
     }
 
     @SneakyThrows
-    public void clearDB(DBConnectionInfo dbConnectionInfo) {
+    public static void clearDB() {
         String transactionsClearSQL = "DELETE FROM card_transactions;";
         String codesClearSQL = "DELETE FROM auth_codes;";
         String cardsClearSQL = "DELETE FROM cards;";
         String usersClearSQL = "DELETE FROM users;";
         QueryRunner runner = new QueryRunner();
         try (
-                Connection connection = DriverManager.getConnection(dbConnectionInfo.getUrl(), dbConnectionInfo.getUser(), dbConnectionInfo.getPassword());
+                Connection connection = DriverManager.getConnection(dbConnectionInfo.getUrl(), dbConnectionInfo.getUser(), dbConnectionInfo.getPassword())
         ) {
             runner.update(connection, transactionsClearSQL);
             runner.update(connection, codesClearSQL);
@@ -41,6 +45,3 @@ public class DBManager {
         }
     }
 }
-
-
-
