@@ -2,7 +2,7 @@ package ru.netology.sql.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import ru.netology.sql.data.VerifyInfo;
+import ru.netology.sql.data.AuthHelper;
 
 import java.time.Duration;
 
@@ -16,7 +16,7 @@ public class VerificationPage {
         codeField.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
-    public DashboardPage verifyByValid(VerifyInfo verifyInfo) {
+    public DashboardPage verifyByValid(AuthHelper.VerifyInfo verifyInfo) {
         codeField.setValue(verifyInfo.getCode());
         verifyButton.click();
         return new DashboardPage();
