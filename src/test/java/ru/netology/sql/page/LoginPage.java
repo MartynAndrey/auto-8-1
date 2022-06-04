@@ -2,7 +2,7 @@ package ru.netology.sql.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import ru.netology.sql.data.AuthInfo;
+import ru.netology.sql.data.AuthHelper;
 
 import java.time.Duration;
 
@@ -19,14 +19,14 @@ public class LoginPage {
         loginField.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
-    public VerificationPage loginByValid (AuthInfo authInfo) {
+    public VerificationPage loginByValid (AuthHelper.AuthInfo authInfo) {
         loginField.setValue(authInfo.getLogin());
         passwordField.setValue(authInfo.getPassword());
         loginButton.click();
         return new VerificationPage();
     }
 
-    public String tripleLoginByInvalid (AuthInfo authInfo) {
+    public String tripleLoginByInvalid (AuthHelper.AuthInfo authInfo) {
         loginField.setValue(authInfo.getLogin());
         passwordField.setValue(authInfo.getPassword());
         loginButton.click();
